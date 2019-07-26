@@ -1,0 +1,10 @@
+<form *ngIf="!redditService.loading" (submit)="login()">
+  <div class="error" *ngIf="errorMessage">{{errorMessage}}</div>
+  <input class="form-control" name="username" type="text" placeholder="Username" [(ngModel)]="username" required>
+  <input class="form-control" name="password" type="password" placeholder="Password" [(ngModel)]="password" required>
+  <div class="remember-me">
+    <input id="rememberMe" name="rememberMe" type="checkbox" [(ngModel)]="sessionService.rememberMe">
+    <label for="rememberMe">Remember me?</label>
+  </div>
+  <button class="btn btn-primary" type="submit">Login</button>
+</form>

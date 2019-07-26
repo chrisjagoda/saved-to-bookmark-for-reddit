@@ -1,5 +1,6 @@
 .app {
     margin: 0 36px;
+    color: #868A8C;
 }
 
 header {
@@ -11,11 +12,13 @@ header {
     .logo {
         flex: 4;
         text-align: center;
+        margin-top: -3px;  
+        margin-left: -5px;
+        margin-right: 10px;
     }
 
         .logo-img {
-            height: 115px;
-            margin-top: -3px;   
+            height: 115px; 
         }
 
     .title {
@@ -25,11 +28,10 @@ header {
     }
 
     .title > h1 {
-        word-wrap: break-word;
         font-weight: bold;
-        font-size: 3em;
+        font-size: 3.12em;
         color: #FF4503;
-        margin-top: 24px;
+        margin-top: 20px;
         margin-bottom: 0;
     }
 
@@ -39,144 +41,3 @@ header {
         margin-top: -6px;
         font-weight: normal;
     }
-    
-main {
-    margin: 32px 0;
-    color: #868A8C;
-}
-
-h1, h2, h3 {
-    cursor: default;
-}
-
-h3 {
-    margin: 0 0 6px -1px;
-}
-
-ul {
-    margin: 0;
-    padding: 0;
-}
-
-li {
-    list-style-type: none;
-    word-wrap: break-word;
-}
-
-li:nth-child(2n+1) {
-    background-color: #F7F8FA;
-}
-
-label {
-    position: relative;
-    bottom: 2px;
-}
-
-#allChecked {
-    margin-left: 0;
-    margin-bottom: 10px !important;
-}
-
-.control-area {
-    display: inline-flex;
-    width: 100%;
-    margin: 6px 0;
-}
-
-    .buttons {
-        flex: 20;
-    }
-
-        .input-row {
-            margin-bottom: 12px;
-            display: flex;
-        }
-
-            .input-box {
-                height: 25px;
-                padding: 0px 5px;
-            }
-
-            .input-box:focus {                
-                border: 1px solid #868A8C;
-                outline: none;
-            }
-        
-            .sm-icon {
-                height: 26px;
-                width: 26px;
-                position: relative;
-            }
-
-            .button-row {
-                display: inline-flex;
-                margin-top: 10px;
-            }
-
-                .button-row > button {
-                    flex: 8;
-                    width: 100px;
-                    height: 40px;
-                    color: #0479D4;
-                    background-color: rgba(4, 121, 212, .07);
-                    border-radius: 4px;
-                    border: 1px solid #DAE0E6;
-                    font-weight: bold;
-                    font-size: 12px;
-                    line-height: 1.1;
-                }
-
-                .button-row > button:hover {
-                    background-color: rgba(4, 121, 212, .14);
-                }
-
-                .button-row > button:active {
-                    background-color: rgba(4, 121, 212, .21);
-                }
-
-                .button-row > button:active, .button-row > button:focus {
-                    border-radius: 4px;
-                    outline: none;
-                }
-
-    .spacer {
-        flex: 1;
-    }
-
-    .subreddits {
-        flex: 20;
-    }
-
-        .subreddits > label {
-            font-style: italic;
-        }
-                    
-        .subreddit-list {
-            height: 164px;
-        }
-
-            .subreddit-list > ul > li {
-                padding: 2px;
-            }
-
-.post-list {
-    height: 164px;
-}
-
-    .post-list > ul > li {
-        padding: 2px 4px;
-    }
-
-        .post-list > ul > li > a {
-            text-decoration: none;
-            color: #868A8C;
-        }
-
-.subreddit-list, .post-list {    
-    overflow-y: scroll;
-}
-
-.subreddit-list, .post-list, .input-box {
-    box-shadow: 0 1px 4px rgba(220, 220, 220, 0.5);
-    border: 1px solid #DAE0E6;
-}

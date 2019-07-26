@@ -1,0 +1,74 @@
+
+<span class="sm-control-area" *ngIf="sessionService.loggedIn && !redditService.loading">
+  <button class="btn btn-secondary" (click)="getSaved()">Get Posts</button>
+  <button class="btn btn-secondary" (click)="switchUser()">Switch User</button>
+</span>
+<div *ngIf="savedPostsRetrieved">
+  <div class="control-area">
+    <div class="buttons">
+      <div class="input-row">
+        <span>
+          <h3>Bookmark folder name</h3>
+          <input type="text" [(ngModel)]="bookmarkFolder.name" class="form-control">
+        </span>
+        <span class="tooltip check-circle">
+          <span *ngIf="bookmarkFolder.created" class="tooltiptext">Bookmark folder created</span>
+          <svg *ngIf="bookmarkFolder.created" style="fill:#59b459" class="sm-icon" viewBox="0 0 44 44">
+            <path d="m22,0c-12.2,0-22,9.8-22,22s9.8,22 22,22 22-9.8 22-22-9.8-22-22-22zm12.7,15.1l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.6-0.1-0.7-0.3l-7.8-8.4-.2-.2c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.3 0.4,0.9 0,1.3z">
+            </path>
+          </svg>
+          <span *ngIf="!bookmarkFolder.created" class="tooltiptext">Bookmark folder does not exist</span>
+          <svg *ngIf="!bookmarkFolder.created" style="fill:red" class="sm-icon"  viewBox="0 0 512 512">
+            <path d="M437.105,74.896c-99.863-99.863-262.35-99.859-362.209,0c-99.859,99.859-99.863,262.346,0,362.209 s262.351,99.86,362.209,0S536.968,174.759,437.105,74.896z M362.324,338.697c6.526,6.526,6.522,17.105,0,23.627 c-6.522,6.522-17.101,6.526-23.627,0l-82.696-82.696l-82.696,82.696c-6.522,6.522-17.101,6.526-23.627,0 c-6.526-6.526-6.522-17.105,0-23.627l82.696-82.696l-82.696-82.696c-6.526-6.526-6.522-17.106,0-23.627s17.101-6.526,23.627,0 l82.696,82.696l82.696-82.696c6.522-6.522,17.101-6.526,23.627,0c6.526,6.526,6.522,17.106,0,23.627l-82.696,82.696 L362.324,338.697z" fill="#D80027"/>
+          </svg>
+        </span>
+      </div>
+      <div class="button-container">
+        <div class="button-row">
+          <button class="btn btn-primary" (click)="updateSaveFolder()">Update folder</button>
+          <span class="spacer"></span>
+          <button class="btn btn-primary" (click)="createBookmarkFolder()">Create folder</button>
+        </div>
+        <div class="button-row">
+          <button class="btn btn-primary" (click)="createBookmarks()">Create bookmarks</button>
+          <span class="spacer"></span>
+          <button class="btn btn-primary" (click)="removeDuplicates()">Remove duplicates</button>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="subreddits">
+      <h3>Subreddits</h3>
+      <input type="checkbox" (change)="changeAll()" [(ngModel)]="allChecked" id="allChecked" name="allChecked">
+      <label for="allChecked">
+        Check/Uncheck All
+      </label>
+      <div class="subreddit-list">
+        <ul>
+          <li *ngFor="let subreddit of subreddits">
+            <input type="checkbox" (change)="filterSubreddit(subreddit)" [(ngModel)]="subreddit.checked" id={{subreddit.name}} name={{subreddit.name}}>
+            <label for={{subreddit.name}}>
+              {{subreddit.name}}
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="post-area">
+    <h3>Saved posts</h3>
+    <div class="post-list">
+      <ul *ngIf="savedPostsRetrieved">
+        <li *ngFor="let post of bookmarks; let i = index">
+          <a href={{post.url}}></a>
+            <svg class="link" style="fill: #868A8C;" viewBox="0 0 457.03 457.03">
+              <path d="M421.512,207.074l-85.795,85.767c-47.352,47.38-124.169,47.38-171.529,0c-7.46-7.439-13.296-15.821-18.421-24.465 l39.864-39.861c1.895-1.911,4.235-3.006,6.471-4.296c2.756,9.416,7.567,18.33,14.972,25.736c23.648,23.667,62.128,23.634,85.762,0 l85.768-85.765c23.666-23.664,23.666-62.135,0-85.781c-23.635-23.646-62.105-23.646-85.768,0l-30.499,30.532 c-24.75-9.637-51.415-12.228-77.373-8.424l64.991-64.989c47.38-47.371,124.177-47.371,171.557,0 C468.869,82.897,468.869,159.706,421.512,207.074z M194.708,348.104l-30.521,30.532c-23.646,23.634-62.128,23.634-85.778,0 c-23.648-23.667-23.648-62.138,0-85.795l85.778-85.767c23.665-23.662,62.121-23.662,85.767,0 c7.388,7.39,12.204,16.302,14.986,25.706c2.249-1.307,4.56-2.369,6.454-4.266l39.861-39.845 c-5.092-8.678-10.958-17.03-18.421-24.477c-47.348-47.371-124.172-47.371-171.543,0L35.526,249.96 c-47.366,47.385-47.366,124.172,0,171.553c47.371,47.356,124.177,47.356,171.547,0l65.008-65.003 C246.109,360.336,219.437,357.723,194.708,348.104z"/>
+            </svg>
+          </a>
+          <span class="post-title">{{post.title}}</span>
+          <span *ngIf="post.body"> - {{post.body}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

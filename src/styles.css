@@ -11,3 +11,57 @@ html, body {
 input, button {
     font-family: 'IBM Plex Sans', sans-serif;
 }
+
+h1, h2, h3 {
+    cursor: default;
+}
+
+.btn {
+    color: #0479D4;
+    background-color: rgba(4, 121, 212, .07);
+    border: 1px solid #DAE0E6;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 1.1;
+}
+
+.btn-primary {
+    flex: 8;
+    width: 100px;
+    height: 40px;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background-color: rgba(4, 121, 212, .14);
+}
+
+.btn:active {
+    background-color: rgba(4, 121, 212, .21);
+}
+
+.btn:active, .btn:focus {
+    outline: none;
+}
+
+.btn-secondary {
+    border-radius: 15px;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.error {
+    color: red;
+}
+
+.form-control {
+    height: 25px;
+    padding: 0px 5px;
+    box-shadow: 0 1px 4px rgba(220, 220, 220, 0.5);
+    border: 1px solid #DAE0E6;
+}
+
+.form-control:focus {                
+    border: 1px solid #868A8C;
+    outline: none;
+}

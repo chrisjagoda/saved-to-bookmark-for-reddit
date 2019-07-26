@@ -1,10 +1,11 @@
 /* Tooltip container */
 .tooltip {
     position: relative;
-    display: inline-block;
+}
+
+.tooltip.check-circle {
     top: 25px;
     left: 10px;
-    height: fit-content;
 }
 
 /* Tooltip text */

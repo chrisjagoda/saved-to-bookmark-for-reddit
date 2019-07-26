@@ -1,0 +1,118 @@
+h3 {
+    margin: 0 0 6px -1px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+    word-wrap: break-word;
+}
+
+li:nth-child(2n+1) {
+    background-color: #F7F8FA;
+}
+
+label {
+    position: relative;
+    bottom: 2px;
+}
+
+#allChecked {
+    margin-left: 0;
+    margin-bottom: 10px;
+}
+
+.sm-control-area {
+    position: absolute;
+    right: 36px;
+    top: 123px;
+}
+
+.control-area {
+    display: inline-flex;
+    width: 100%;
+    margin: 6px 0;
+}
+
+    .button-container {
+        margin-top: 25px;
+    }
+
+    .buttons {
+        flex: 20;
+    }
+
+        .input-row {
+            margin-bottom: 12px;
+            display: flex;
+        }
+        
+            .sm-icon {
+                height: 26px;
+                width: 26px;
+                position: relative;
+            }
+
+            .button-row {
+                display: inline-flex;
+                margin-top: 10px;
+            }
+
+    .spacer {
+        flex: 1;
+    }
+
+    .subreddits {
+        flex: 20;
+    }
+
+        .subreddits > label {
+            font-style: italic;
+        }
+                    
+        .subreddit-list {
+            height: 164px;
+        }
+
+            .subreddit-list > ul > li {
+                padding: 2px;
+            }
+
+.post-list {
+    height: 164px;
+}
+
+    .post-list > ul > li:active,
+    .post-list > ul > li:hover {
+        white-space: normal;
+    }
+
+    .post-list > ul > li {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 2px 4px;
+    }
+
+    .post-list > ul > li > a > .link {
+        height: 9px;
+        width: 9px;
+        margin-right: 4px;
+    }
+
+    .post-list > ul > li > .post-title {
+        color: #3d3d3d;
+    }
+
+.subreddit-list, .post-list {    
+    overflow-y: scroll;
+}
+
+.subreddit-list, .post-list {
+    box-shadow: 0 1px 4px rgba(220, 220, 220, 0.5);
+    border: 1px solid #DAE0E6;
+}

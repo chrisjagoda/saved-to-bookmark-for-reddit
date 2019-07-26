@@ -1,27 +1,25 @@
 export interface RedditSession {
-  bookmarkFolder: string,
-  username: string,
-  code: string,
-  timestamp: number,
-  isValid: boolean
+  bookmarkFolder: string;
+  username: string;
+  modhash: string;
+  expires: number;
 }
 
 export interface Config {
-  userAgent: string,
-  clientId: string,
-  redirectUri: string
+  userAgent: string;
 }
 
 export interface Bookmark {
-  subreddit: string,
-  title: string,
-  url: string,
-  type: PostType
+  subreddit: string;
+  title: string;
+  body?: string;
+  url: string;
+  type: PostType;
 }
 
 export interface BookmarkFolder {
-  name: string,
-  created: boolean
+  name: string;
+  created: boolean;
 }
 
 export enum PostType {
