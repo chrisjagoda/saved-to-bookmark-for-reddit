@@ -1,6 +1,6 @@
 # Saved to Bookmark for Reddit
 
-An application that uses Reddit's API to request identification information and the user's saved posts from the user's Reddit account. After user logs on to Reddit and authorizes the application to use their information, user will be able to upload their saved reddit posts to their google chrome browser bookmarks.
+A chrome bookmark extension that allows a user to retrieve their saved posts and convert them to bookmarks. Allows filtering by subreddits,  removing duplicate posts, user specified save folder and more.
 
 Extension can be found in the Chrome Web Store [here](https://chrome.google.com/webstore/detail/saved-to-bookmark-for-red/jldonmpmebcjhhkgceklimheebdnjkpf).
 
@@ -17,8 +17,6 @@ Permissions: Bookmarks, Webview
 * [Bookmarks](https://developer.chrome.com/extensions/bookmarks)
 * [Runtime](https://developer.chrome.com/apps/app.runtime.html)
 * [Window](https://developer.chrome.com/apps/app.window.html)
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.5.
 
 ## Development server
 

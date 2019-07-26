@@ -2,24 +2,24 @@ form {
     text-align: center;
 }
 
-form > .form-control {
+.form-control {
     display: block;
     margin: 18px auto;
     width: 200px;
 }
 
-form .remember-me {
+.remember-me {
     position: absolute;
     top: 242px;
     right: 256px;
 }
 
-form .error {
+.form-error {
     position: absolute;
     margin-top: -17px;
     margin-left: 110px;
 }
 
-form .btn {
+.form-btn {
     margin-top: 20px;
 }

@@ -21,13 +21,13 @@ header {
             height: 115px; 
         }
 
-    .title {
+    .title-container {
         border-bottom: 1px solid #DAE0E6;
         flex: 15;
         margin-bottom: 6px;
     }
 
-    .title > h1 {
+    .title {
         font-weight: bold;
         font-size: 3.12em;
         color: #FF4503;
@@ -35,7 +35,7 @@ header {
         margin-bottom: 0;
     }
 
-    .title > h2 {
+    .subtitle {
         font-size: 2em;
         color: #0479D4;
         margin-top: -6px;

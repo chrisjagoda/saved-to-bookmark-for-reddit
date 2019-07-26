@@ -26,13 +26,13 @@ label {
     margin-bottom: 10px;
 }
 
-.sm-control-area {
+.user-control-container {
     position: absolute;
     right: 36px;
     top: 123px;
 }
 
-.control-area {
+.app-control-container {
     display: inline-flex;
     width: 100%;
     margin: 6px 0;
@@ -46,21 +46,21 @@ label {
         flex: 20;
     }
 
-        .input-row {
-            margin-bottom: 12px;
-            display: flex;
+    .input-row {
+        margin-bottom: 12px;
+        display: flex;
+    }
+    
+        .sm-icon {
+            height: 26px;
+            width: 26px;
+            position: relative;
         }
-        
-            .sm-icon {
-                height: 26px;
-                width: 26px;
-                position: relative;
-            }
 
-            .button-row {
-                display: inline-flex;
-                margin-top: 10px;
-            }
+        .button-row {
+            display: inline-flex;
+            margin-top: 10px;
+        }
 
     .spacer {
         flex: 1;
@@ -70,7 +70,7 @@ label {
         flex: 20;
     }
 
-        .subreddits > label {
+        .all-checked-label {
             font-style: italic;
         }
                     
@@ -78,41 +78,35 @@ label {
             height: 164px;
         }
 
-            .subreddit-list > ul > li {
+            .subreddit {
                 padding: 2px;
             }
 
 .post-list {
-    height: 164px;
+    height: 164px;    
+    overflow-y: scroll;
+    box-shadow: 0 1px 4px rgba(220, 220, 220, 0.5);
+    border: 1px solid #DAE0E6;
 }
 
-    .post-list > ul > li:active,
-    .post-list > ul > li:hover {
+    .post:active,
+    .post:hover {
         white-space: normal;
     }
 
-    .post-list > ul > li {
+    .post {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         padding: 2px 4px;
     }
 
-    .post-list > ul > li > a > .link {
-        height: 9px;
-        width: 9px;
-        margin-right: 4px;
-    }
+        .post-link-img {
+            height: 9px;
+            width: 9px;
+            margin-right: 4px;
+        }
 
-    .post-list > ul > li > .post-title {
-        color: #3d3d3d;
-    }
-
-.subreddit-list, .post-list {    
-    overflow-y: scroll;
-}
-
-.subreddit-list, .post-list {
-    box-shadow: 0 1px 4px rgba(220, 220, 220, 0.5);
-    border: 1px solid #DAE0E6;
-}
+        .post-title {
+            color: #3d3d3d;
+        }
