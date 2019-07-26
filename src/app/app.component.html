@@ -1,0 +1,90 @@
+<div class="app">
+  <header>
+    <span class="logo">
+      <img class="logo-img" src="../assets/logo.png">
+    </span>
+    <span class="spacer"></span>
+    <span class="title">
+        <h1>{{ title }}</h1>
+        <h2>{{ subtitle }}</h2>
+    </span>
+  </header>
+  <main>
+    <div *ngIf="savedPostsRetrieved">
+      <div class="control-area">
+        <div class="buttons">
+          <div class="input-row">
+            <span>
+              <h3>Bookmark folder name</h3>
+              <input type="text" [(ngModel)]="bookmarkFolder.name" class="input-box">
+            </span>
+            <span class="tooltip">
+              <span *ngIf="bookmarkFolder.created" class="tooltiptext">Save folder created</span>
+              <svg *ngIf="bookmarkFolder.created" style="fill:#59b459" class="sm-icon" viewBox="0 0 44 44">
+                <path d="m22,0c-12.2,0-22,9.8-22,22s9.8,22 22,22 22-9.8 22-22-9.8-22-22-22zm12.7,15.1l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.6-0.1-0.7-0.3l-7.8-8.4-.2-.2c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.3 0.4,0.9 0,1.3z">
+                </path>
+              </svg>
+              <span *ngIf="!bookmarkFolder.created" class="tooltiptext">Save folder does not exist</span>
+              <svg *ngIf="!bookmarkFolder.created" style="fill:red" class="sm-icon"  viewBox="0 0 512 512">
+                <path d="M437.105,74.896c-99.863-99.863-262.35-99.859-362.209,0c-99.859,99.859-99.863,262.346,0,362.209    s262.351,99.86,362.209,0S536.968,174.759,437.105,74.896z M362.324,338.697c6.526,6.526,6.522,17.105,0,23.627    c-6.522,6.522-17.101,6.526-23.627,0l-82.696-82.696l-82.696,82.696c-6.522,6.522-17.101,6.526-23.627,0    c-6.526-6.526-6.522-17.105,0-23.627l82.696-82.696l-82.696-82.696c-6.526-6.526-6.522-17.106,0-23.627s17.101-6.526,23.627,0    l82.696,82.696l82.696-82.696c6.522-6.522,17.101-6.526,23.627,0c6.526,6.526,6.522,17.106,0,23.627l-82.696,82.696    L362.324,338.697z" fill="#D80027"/>
+              </svg>
+            </span>
+          </div>
+          <div class="button-row">
+            <button (click)="updateSaveFolder()">Update folder</button>
+            <span class="spacer"></span>
+            <button (click)="createBookmarkFolder()">Create folder</button>
+          </div>
+          <div class="button-row">
+            <button (click)="createBookmarks()">Create bookmarks</button>
+            <span class="spacer"></span>
+            <button (click)="removeDuplicates()">Remove duplicates</button>
+          </div>
+        </div>
+        <div class="spacer"></div>
+        <div class="subreddits">
+          <h3>Subreddits</h3>
+          <input style="margin-bottom:5px" type="checkbox" (change)="changeAll()" [(ngModel)]="allChecked" id="allChecked">
+          <label for="allChecked">
+            Check/Uncheck All
+          </label>
+          <div class="subreddit-list">
+            <ul>
+              <li *ngFor="let subreddit of subreddits">
+                <input type="checkbox" (change)="filterSubreddit(subreddit)" [(ngModel)]="subreddit.checked" id={{subreddit.name}}>
+                <label for={{subreddit.name}}>
+                  {{ subreddit.name }}
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="post-area">
+        <h3>Saved posts</h3>
+        <div class="post-list">
+          <ul *ngIf="savedPostsRetrieved">
+            <li *ngFor="let post of bookmarks; let i = index">
+              <a href={{post.url}} target="_blank">{{ post.title }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Loading animation -->
+    <div *ngIf="!savedPostsRetrieved" class="sk-circle">
+      <div class="sk-circle1 sk-child"></div>
+      <div class="sk-circle2 sk-child"></div>
+      <div class="sk-circle3 sk-child"></div>
+      <div class="sk-circle4 sk-child"></div>
+      <div class="sk-circle5 sk-child"></div>
+      <div class="sk-circle6 sk-child"></div>
+      <div class="sk-circle7 sk-child"></div>
+      <div class="sk-circle8 sk-child"></div>
+      <div class="sk-circle9 sk-child"></div>
+      <div class="sk-circle10 sk-child"></div>
+      <div class="sk-circle11 sk-child"></div>
+      <div class="sk-circle12 sk-child"></div>
+    </div>
+  </main>
+</div>
