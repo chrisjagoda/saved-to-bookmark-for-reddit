@@ -1,72 +1,45 @@
 import { Injectable } from '@angular/core';
-import { BookmarkFolder, Bookmark } from '../types';
+import browser from 'webextension-polyfill';
+import { Bookmark } from '../types';
 
 @Injectable()
 export class BookmarkService {
-  bookmarkFolder: string;
-  bookmarkFolderId: string;
+  folderId: string;
 
-  setBookmarkFolder(bookmarkFolder: string): Promise<BookmarkFolder> {
-    const self = this;
-    return new Promise(resolve => {
-      const options = {
-        title: bookmarkFolder
-      };
-      chrome.bookmarks.search(options, nodes => {
-        const bookmarkFolderNode = nodes.find(node => {
-          return !node.url;
-        });
-        self.bookmarkFolderId = bookmarkFolderNode ? bookmarkFolderNode.id : undefined;
-        self.bookmarkFolder = bookmarkFolder;
-        resolve(<BookmarkFolder>{
-          name: self.bookmarkFolder,
-          created: Boolean(bookmarkFolderNode)
-        });
-      });
+  async setBookmarkFolder(folderName: string): Promise<void> {
+    const options = {
+      title: folderName
+    };
+    const nodes = await browser.bookmarks.search(options);
+    const folderNameNode = nodes.find(node => {
+      return !node.url;
     });
+    this.folderId = folderNameNode ? folderNameNode.id : undefined;
   }
 
-  createBookmarkFolder(): Promise<BookmarkFolder>  {
-    const self = this;
-    return new Promise(resolve => {
-      if (!self.bookmarkFolderId) {
-        chrome.bookmarks.create({title: this.bookmarkFolder}, node => {
-          self.bookmarkFolderId = node.id;
-          resolve(<BookmarkFolder>{
-            name: self.bookmarkFolder, created: true
-          });
-        });
-      } else {
-        resolve(<BookmarkFolder>{
-          name: self.bookmarkFolder, created: true
-        });
-      }
-    });
+  async createBookmarkFolder(folderName: string): Promise<void>  {
+    if (!this.folderId) {
+      const node = await browser.bookmarks.create({title: folderName});
+      this.folderId = node.id;
+    }
   }
 
   createBookmarks(bookmarks: Array<Bookmark>) {
-    const self = this;
     bookmarks.forEach(bookmark => {
-      chrome.bookmarks.create({
-        parentId: self.bookmarkFolderId,
+      browser.bookmarks.create({
+        parentId: this.folderId,
         title: bookmark.body ? bookmark.title + ' - ' + bookmark.body : bookmark.title,
         url: bookmark.url
       });
     });
   }
 
-  removeDuplicates(bookmarks: Array<Bookmark>): Promise<Array<Bookmark>> {
-    const self = this;
-    return new Promise(resolve => {
-      if (self.bookmarkFolderId) {
-        chrome.bookmarks.getChildren(self.bookmarkFolderId, nodes => {
-          resolve(bookmarks.filter(bookmark => {
-            return nodes.findIndex(node => node.url === bookmark.url || node.title === bookmark.title) < 0;
-          }));
-        });
-      } else {
-        resolve(bookmarks);
-      }
-    });
+  async removeDuplicates(bookmarks: Array<Bookmark>): Promise<Array<Bookmark>> {
+    if (this.folderId) {
+      const nodes = await browser.bookmarks.getChildren(this.folderId);
+      return bookmarks.filter(bookmark => {
+        return nodes.findIndex(node => node.url === bookmark.url) === -1;
+      });
+    }
   }
 }

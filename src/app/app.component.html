@@ -10,9 +10,16 @@
     </span>
   </header>
   <main>
-    <p>{{sessionService.message}}</p>
-    <app-login *ngIf="!sessionService.loggedIn"></app-login>
-    <app-bookmarker *ngIf="sessionService.loggedIn"></app-bookmarker>
+    <p class="user-bar">
+      <span class="message">{{storageService.message}}</span>
+      <span class="spacer"></span>
+      <span class="user-control-container" *ngIf="redditService.loggedIn && !redditService.loading">
+        <button class="btn btn-secondary" (click)="bookmarker.getSaved()">Get Posts</button>
+        <button class="btn btn-secondary" (click)="switchUser()">Switch User</button>
+      </span>
+    </p>
+    <app-login *ngIf="!redditService.loggedIn && !redditService.loading"></app-login>
+    <app-bookmarker #bookmarker *ngIf="redditService.loggedIn"></app-bookmarker>
     <div *ngIf="redditService.loading">
       <div class="sk-circle">
         <div class="sk-circle1 sk-child"></div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { RedditService } from '../services/reddit.service';
-import { SessionService } from '../services/session.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -9,37 +9,28 @@ import { SessionService } from '../services/session.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  private readonly INVALID_LOGIN_ERROR_MESSAGE = 'Invalid username or password';
   username: string;
   password: string;
   errorMessage: string;
 
   constructor(
     public redditService: RedditService,
-    public sessionService: SessionService
+    public storageService: StorageService
   ) { }
 
   ngOnInit() {
-    this.sessionService.message = 'Please log in to continue.';
+    this.storageService.message = 'Please log in to continue.';
   }
 
-  login() {
-    if (this.username && this.password.trim() && this.password && this.password.trim()) {
-      this.sessionService.message = 'Attempting log in...';
-      this.redditService.login( this.username, this.password)
-      .then(() => {
-        return this.redditService.getMe();
-      })
-      .then(data => {
-        this.sessionService.loggedIn = true;
-        this.sessionService.renewRedditSession(data.modhash, data.name);
-      })
-      .catch(() => {
-        this.sessionService.message = 'Please log in to continue.';
-        this.errorMessage = 'Invalid username or password';
-      });
-    } else {
-        this.errorMessage = 'Invalid username or password';
+  async login() {
+    if (this.username && (this.username = this.username.trim()) &&
+        this.password && (this.password = this.password.trim())) {
+      try {
+        return await this.redditService.login(this.username, this.password);
+      } catch { }
     }
-  }
 
+    this.errorMessage = this.INVALID_LOGIN_ERROR_MESSAGE;
+  }
 }

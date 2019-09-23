@@ -3,8 +3,9 @@
 
 html, body {
     height: 600px;
-    width: 504px;
+    width: 506px;
     margin: 0 auto;
+    font-size: 12px;
     font-family: 'IBM Plex Sans', sans-serif;
 }
 
@@ -14,6 +15,18 @@ input, button {
 
 h1, h2, h3 {
     cursor: default;
+}
+
+h1 {
+    font-size: 38px;
+}
+
+h2 {
+    font-size: 26px;
+}
+
+h3 {
+    font-size: 14px;
 }
 
 .btn {
@@ -27,9 +40,14 @@ h1, h2, h3 {
 
 .btn-primary {
     flex: 8;
-    width: 100px;
     height: 40px;
     border-radius: 4px;
+}
+
+.btn-secondary {
+    border-radius: 15px;
+    padding: 5px;
+    margin-left: 10px;
 }
 
 .btn:hover {
@@ -42,12 +60,6 @@ h1, h2, h3 {
 
 .btn:active, .btn:focus {
     outline: none;
-}
-
-.btn-secondary {
-    border-radius: 15px;
-    padding: 5px;
-    margin-left: 10px;
 }
 
 .error {

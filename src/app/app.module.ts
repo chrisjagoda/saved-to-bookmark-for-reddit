@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BookmarkService } from './services/bookmark.service';
 import { RedditService } from './services/reddit.service';
-import { SessionService } from './services/session.service';
+import { StorageService } from './services/storage.service';
 import { LoginComponent } from './login/login.component';
 import { BookmarkerComponent } from './bookmarker/bookmarker.component';
 
@@ -21,7 +21,7 @@ import { BookmarkerComponent } from './bookmarker/bookmarker.component';
     BrowserModule,
     HttpClientModule
   ],
-  providers: [BookmarkService, RedditService, SessionService],
+  providers: [BookmarkService, RedditService, StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

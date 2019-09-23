@@ -3,53 +3,48 @@ import { Component, OnInit } from '@angular/core';
 import { BookmarkService } from '../services/bookmark.service';
 import { RedditService } from '../services/reddit.service';
 
-import { Bookmark, BookmarkFolder } from '../types';
-import { SessionService } from '../services/session.service';
+import { Bookmark } from '../types';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-bookmarker',
   templateUrl: './bookmarker.component.html',
-  styleUrls: ['./bookmarker.component.css', '../tooltip.css']
+  styleUrls: ['./bookmarker.component.css', '../../css/tooltip.css']
 })
 export class BookmarkerComponent implements OnInit {
-  bookmarkFolder: BookmarkFolder;
-  savedPosts: Array<Bookmark>;
+  private savedPosts: Array<Bookmark>;
   bookmarks: Array<Bookmark>;
   subreddits: Array<{name: string, checked: boolean}>;
   allChecked = true;
-  savedPostsRetrieved = false;
+  savedPostsLoaded = false;
+  folderName: string;
+  maxCommentLength: number;
 
   constructor(
-    private bookmarkService: BookmarkService,
+    public bookmarkService: BookmarkService,
     public redditService: RedditService,
-    public sessionService: SessionService
+    private readonly storageService: StorageService
   ) { }
 
   ngOnInit() {
-    this.sessionService.message = `Welcome ${this.redditService.username}.`;
+    this.storageService.init(this.redditService.username);
   }
 
-  getSaved() {
-    this.sessionService.message = `Welcome ${this.redditService.username}. Please wait while your posts are retrieved...`;
-    this.savedPostsRetrieved = false;
-    this.redditService.getAllSaved()
-    .then(saved => {
-      this.savedPosts = saved;
-      this.bookmarks = saved.slice();
-      this.subreddits = this.getSubreddits();
-      return this.bookmarkService.setBookmarkFolder(this.sessionService.redditSession.bookmarkFolder);
-    })
-    .then(result => {
-      this.bookmarkFolder = result;
-      this.savedPostsRetrieved = true;
-      this.sessionService.message = `Welcome ${this.redditService.username}.`;
-    });
+  async getSaved() {
+    const saved = await this.redditService.getAllSaved();
+    this.setSavedPosts(saved);
+    this.bookmarks = saved;
+    this.subreddits = this.getSubreddits();
+    this.folderName = this.storageService.redditStorage.folderName;
+    this.maxCommentLength = this.storageService.redditStorage.maxCommentLength;
+    this.bookmarkService.setBookmarkFolder(this.folderName);
+    this.setMaxCommentLengthOnBookmarks();
+    this.savedPostsLoaded = true;
   }
 
   getSubreddits(): Array<{name: string, checked: boolean}> {
-    return this.savedPosts.map(post => post.subreddit)
-    .filter((value, index, self) => self.indexOf(value) === index)
-    .sort()
+    const subreddits = Array.from(new Set(this.getSavedPosts().map(post => post.subreddit)));
+    return subreddits.sort()
     .map(subreddit => {
       return {name: subreddit, checked: true};
     });
@@ -58,11 +53,9 @@ export class BookmarkerComponent implements OnInit {
   filterSubreddit(subreddit) {
     if (subreddit.checked) {
       this.bookmarks = this.bookmarks
-      .concat(this.savedPosts
-      .filter(post => post.subreddit === subreddit.name));
+      .concat(this.getSavedPosts().filter(post => post.subreddit === subreddit.name));
     } else {
-      this.bookmarks = this.bookmarks
-      .filter(post => post.subreddit !== subreddit.name);
+      this.bookmarks = this.bookmarks.filter(post => post.subreddit !== subreddit.name);
     }
   }
 
@@ -70,53 +63,62 @@ export class BookmarkerComponent implements OnInit {
     this.subreddits.forEach(subreddit => {
       subreddit.checked = this.allChecked;
     });
-    this.bookmarks = this.allChecked ? this.savedPosts : [];
+    this.bookmarks = this.allChecked ? this.getSavedPosts() : [];
   }
 
-  updateSaveFolder() {
-    this.bookmarkService.setBookmarkFolder(this.bookmarkFolder.name)
-    .then(result => {
-      this.bookmarkFolder = result;
-      this.sessionService.setRedditSession({
-        bookmarkFolder: this.bookmarkFolder.name,
-        username: this.sessionService.redditSession.username,
-        modhash: this.sessionService.redditSession.modhash,
-        expires: this.sessionService.redditSession.expires
-      });
-    });
+  updateMaxCommentLength() {
+    this.allChecked = true;
+    this.changeAll();
+    this.setMaxCommentLengthOnBookmarks();
+    this.setRedditStorage();
   }
 
-  createBookmarkFolder(): Promise<any> {
-    return new Promise(resolve => {
-      this.bookmarkService.createBookmarkFolder()
-      .then(result => {
-        this.bookmarkFolder = result;
-        resolve();
-      });
-    });
+  async updateSaveFolder() {
+    await this.bookmarkService.setBookmarkFolder(this.folderName);
+    this.setRedditStorage();
   }
 
-  createBookmarks() {
-    if (!this.bookmarkService.bookmarkFolderId) {
-      this.createBookmarkFolder()
-      .then(() => {
-        this.bookmarkService.createBookmarks(this.bookmarks);
-      });
-    } else {
-      this.bookmarkService.createBookmarks(this.bookmarks);
+  async createBookmarkFolder(): Promise<void> {
+    return await this.bookmarkService.createBookmarkFolder(this.folderName);
+  }
+
+  async createBookmarks() {
+    if (!this.bookmarkService.folderId) {
+      await this.createBookmarkFolder();
     }
+    this.bookmarkService.createBookmarks(this.bookmarks);
   }
 
-  removeDuplicates() {
-   this.bookmarkService.removeDuplicates(this.bookmarks)
-    .then(bookmarks => {
-     this.bookmarks = bookmarks;
+  async removeDuplicates() {
+   this.bookmarks = await this.bookmarkService.removeDuplicates(this.bookmarks);
+  }
+
+  private getSavedPosts(): Bookmark[] {
+    return JSON.parse(JSON.stringify(this.savedPosts));
+  }
+
+  private setSavedPosts(bookmarks: Bookmark[]) {
+    this.savedPosts = JSON.parse(JSON.stringify(bookmarks));
+  }
+
+  private setRedditStorage() {
+    this.storageService.setRedditStorage(this.redditService.username, {
+      folderName: this.folderName,
+      maxCommentLength: this.maxCommentLength
     });
   }
 
-  switchUser() {
-    this.sessionService.setRedditSession(undefined);
-    this.sessionService.rememberMe = false;
-    this.sessionService.loggedIn = false;
+  private setMaxCommentLengthOnBookmarks() {
+    this.bookmarks.forEach(bookmark => {
+      bookmark.body = this.trim(bookmark.body);
+    });
+  }
+
+  private trim(text: string): string {
+    return text && this.maxCommentLength > 0 ?
+      (text.length > this.maxCommentLength ?
+        text.substring(0, this.maxCommentLength) + '...' :
+        text) :
+      undefined;
   }
 }

@@ -1,5 +1,5 @@
 .app {
-    margin: 0 36px;
+    margin: 0 24px;
     color: #868A8C;
 }
 
@@ -29,15 +29,22 @@ header {
 
     .title {
         font-weight: bold;
-        font-size: 3.12em;
         color: #FF4503;
         margin-top: 20px;
         margin-bottom: 0;
     }
 
     .subtitle {
-        font-size: 2em;
         color: #0479D4;
         margin-top: -6px;
         font-weight: normal;
+    }
+
+    .user-bar {
+        display: flex;
+        line-height: 25px;
+    }
+
+    .message {
+        flex: 10;
     }

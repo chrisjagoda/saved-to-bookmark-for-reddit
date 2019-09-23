@@ -1,12 +1,6 @@
-export interface RedditSession {
-  bookmarkFolder: string;
-  username: string;
-  modhash: string;
-  expires: number;
-}
-
-export interface Config {
-  userAgent: string;
+export interface RedditStorage {
+  folderName: string;
+  maxCommentLength: number;
 }
 
 export interface Bookmark {
@@ -15,11 +9,6 @@ export interface Bookmark {
   body?: string;
   url: string;
   type: PostType;
-}
-
-export interface BookmarkFolder {
-  name: string;
-  created: boolean;
 }
 
 export enum PostType {

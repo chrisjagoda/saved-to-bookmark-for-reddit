@@ -1,15 +1,15 @@
-// import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
-// import { RedditService } from './reddit.service';
+import { RedditService } from './reddit.service';
 
-// describe('RedditService', () => {
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       providers: [RedditService]
-//     });
-//   });
+describe('RedditService', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [RedditService]
+    });
+  });
 
-//   it('should be created', inject([RedditService], (service: RedditService) => {
-//     expect(service).toBeTruthy();
-//   }));
-// });
+  it('should be created', inject([RedditService], (service: RedditService) => {
+    expect(service).toBeTruthy();
+  }));
+});

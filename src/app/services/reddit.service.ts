@@ -1,29 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Bookmark, PostType } from '../types';
-import { SessionService } from './session.service';
 
 @Injectable()
 export class RedditService {
-  private loginUrl = 'https://ssl.reddit.com/api/';
-  private redditUrl = 'https://www.reddit.com/user/';
-  private modhash: string;
-  private maxTitleLength = 947;
-  loading: boolean;
+  private apiUrl = 'https://www.reddit.com/';
+  private sslUrl = 'https://ssl.reddit.com/';
+  maxCommentLength = 947;
+  email: string;
   username: string;
+  loading = false;
+  loggedIn = false;
 
-  constructor(
-    private http: HttpClient,
-    private sessionService: SessionService) { }
+  constructor(private http: HttpClient) { }
 
-  init(modhash: string, username: string) {
-    this.modhash = modhash;
-    this.username = username;
-  }
-
-  login(username: string, password: string): Promise<any> {
+  async login(username: string, password: string): Promise<{email: string, username: string}> {
     this.loading = true;
-    const url = `${this.loginUrl}login`;
+    const url = `${this.sslUrl}api/login`;
     const body = {
       user: username,
       passwd: password,
@@ -31,34 +24,31 @@ export class RedditService {
       api_type: 'json'
     };
     const options = {headers: {'content-type': 'application/x-www-form-urlencoded'}};
-    return this.http.post(url, this.toUrlParams(body), options).toPromise()
-    .then(response => {
-      this.modhash = response['json'].data.modhash;
-      this.username = username;
-      return this.modhash;
-    })
-    .catch(error => {
-      this.loading = false;
-      throw new HttpErrorResponse(error);
-    });
+    await this.http.post(url, this.toUrlParams(body), options).toPromise();
+    const user = await this.getMe();
+    this.loading = false;
+    return user;
   }
 
-  getMe(): Promise<any> {
-    const url = `${this.redditUrl}${this.username}/about.json`;
-    const options = {
-      headers: {modhash: this.modhash}
-    };
-    return this.http.get(url, options).toPromise()
-    .then(response => {
-      this.username = response['data'].name;
-      return response['data'];
-    })
-    .catch(error => {
-      throw new HttpErrorResponse(error);
-    })
-    .then(() => {
-      this.loading = false;
-    });
+  async getMe(): Promise<any> {
+    const url = `${this.sslUrl}/prefs/update`;
+    try {
+      await this.http.get(url).toPromise();
+    } catch (response) { // TODO - use a different http method
+      if (response.statusText === 'OK') {
+        const domParser = new DOMParser();​​​​​​
+        const dom = domParser.parseFromString(response.error.text, 'text/html');
+        const usernameElement = <HTMLLinkElement>dom.getElementsByClassName('user')[0].firstChild;
+        const username = usernameElement.innerText;
+        const emailElement = <HTMLInputElement>dom.getElementsByName('email')[0];
+        const email = emailElement.defaultValue;
+        this.email = email;
+        this.username = username;
+        this.loggedIn = true;
+        return { email, username };
+      }
+    }
+    return null;
   }
 
   getAllSaved(): Promise<Array<Bookmark>> {
@@ -78,12 +68,12 @@ export class RedditService {
       const bookmark = <Bookmark>{};
       if (save.kind === 't3') {
         bookmark.url = save.data.url;
-        bookmark.title = this.trim(save.data.title);
+        bookmark.title = save.data.title;
         bookmark.type = PostType.SUBMISSION;
       } else if (save.kind === 't1') {
         bookmark.url = save.data.link_permalink;
         bookmark.title = save.data.link_title;
-        bookmark.body = this.trim(save.data.body);
+        bookmark.body = save.data.body;
         bookmark.type = PostType.COMMENT;
       }
       bookmark.subreddit = save.data.subreddit;
@@ -91,43 +81,27 @@ export class RedditService {
     });
   }
 
-  private _getAllSaved(options, allSaved, callback) {
-    const self = this;
-    this.getSaved(options)
-    .then(saved => {
-      if (saved.data.children && saved.data.children.length > 0) {
-        options.after = saved.data.children[saved.data.children.length - 1].data.name;
-        self._getAllSaved(options, allSaved.concat(this.convertSavedToBookmark(saved.data.children)), callback);
-      } else {
-        if (typeof callback === 'function') {
-          this.modhash = saved.data.modhash;
-          this.sessionService.renewRedditSession(this.modhash, this.username);
-          callback(allSaved);
-        }
+  private async _getAllSaved(options, allSaved, callback) {
+    const saved = await this.getSaved(options);
+    if (saved.data.children && saved.data.children.length > 0) {
+      options.after = saved.data.children[saved.data.children.length - 1].data.name;
+      this._getAllSaved(options, allSaved.concat(this.convertSavedToBookmark(saved.data.children)), callback);
+    } else {
+      if (typeof callback === 'function') {
+        callback(allSaved);
       }
-    });
+    }
   }
 
-  private getSaved(parameters): Promise<any> {
-    const url = `${this.redditUrl}${this.username}/saved.json`;
+  private async getSaved(parameters): Promise<any> {
+    const url = `${this.apiUrl}user/${this.username}/saved.json`;
     const options = {
-      headers: {modhash: this.modhash},
       params: parameters
     };
-    return this.http.get(url, options).toPromise()
-    .then(response => {
-      return response;
-    })
-    .catch(error => {
-      throw new HttpErrorResponse(error);
-    });
+    return await this.http.get(url, options).toPromise();
   }
 
   private toUrlParams(params): string {
     return Object.entries(params).map(([key, val]) => `${key}=${val}`).join('&');
-  }
-
-  private trim(text): string {
-    return text.length > this.maxTitleLength ? text.substring(0, this.maxTitleLength) + '...' : text;
   }
 }

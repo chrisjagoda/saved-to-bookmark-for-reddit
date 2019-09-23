@@ -26,20 +26,15 @@ label {
     margin-bottom: 10px;
 }
 
-.user-control-container {
-    position: absolute;
-    right: 36px;
-    top: 123px;
-}
-
 .app-control-container {
-    display: inline-flex;
+    display: flex;
+    flex-direction: row;
     width: 100%;
     margin: 6px 0;
 }
 
     .button-container {
-        margin-top: 25px;
+        margin-top: 13px;
     }
 
     .buttons {
@@ -50,6 +45,10 @@ label {
         margin-bottom: 12px;
         display: flex;
     }
+
+        .folder-text-input {
+            width: 164px;
+        }
     
         .sm-icon {
             height: 26px;
@@ -58,7 +57,8 @@ label {
         }
 
         .button-row {
-            display: inline-flex;
+            display: flex;
+            flex-direction: row;
             margin-top: 10px;
         }
 
@@ -73,16 +73,19 @@ label {
         .all-checked-label {
             font-style: italic;
         }
-                    
-        .subreddit-list {
-            height: 164px;
-        }
 
             .subreddit {
                 padding: 2px;
             }
 
-.post-list {
+            .length-number-input {
+                flex: 8;
+                min-width: 50px;
+                margin-top: 7px;
+            }
+
+.post-list,
+.subreddit-list {
     height: 164px;    
     overflow-y: scroll;
     box-shadow: 0 1px 4px rgba(220, 220, 220, 0.5);
@@ -98,7 +101,7 @@ label {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        padding: 2px 4px;
+        padding: 0.31em 4px;
     }
 
         .post-link-img {
