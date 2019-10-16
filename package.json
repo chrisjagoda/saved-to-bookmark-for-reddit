@@ -1,53 +1,26 @@
 {
   "name": "saved-to-bookmark-for-reddit",
-  "version": "1.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "debug": "ng build && cp -R ./dist/saved-to-bookmark-for-reddit/. ./saved-to-bookmark-for-reddit",
-    "prod": "ng build --prod && cp -R ./dist/saved-to-bookmark-for-reddit/. ./saved-to-bookmark-for-reddit",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
-  "private": true,
-  "dependencies": {
-    "@angular/common": "^7.2.15",
-    "@angular/compiler": "^7.2.15",
-    "@angular/core": "^7.2.15",
-    "@angular/forms": "^7.2.15",
-    "@angular/http": "^7.2.15",
-    "@angular/platform-browser": "^7.2.15",
-    "@angular/platform-browser-dynamic": "^7.2.15",
-    "core-js": "^2.6.9",
-    "npm": "^6.11.3",
-    "rxjs": "^6.5.3",
-    "stream": "0.0.2",
-    "zone": "^0.3.4",
-    "zone.js": "^0.8.29"
-  },
+  "author": "Christopher Jagoda",
+  "version": "3.0.3",
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.6.8",
-    "@angular/cli": "^7.0.7",
-    "@angular/compiler-cli": "^7.2.15",
-    "@angular/language-service": "^7.2.15",
-    "@types/firefox-webext-browser": "^67.0.2",
-    "@types/jasmine": "^2.8.16",
-    "@types/jasminewd2": "^2.0.6",
-    "@types/node": "~8.9.4",
-    "codelyzer": "~4.2.1",
-    "jasmine-core": "~2.99.1",
-    "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~1.7.1",
-    "karma-chrome-launcher": "~2.2.0",
-    "karma-coverage-istanbul-reporter": "~1.4.2",
-    "karma-jasmine": "~1.1.1",
-    "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.3.0",
-    "ts-node": "~5.0.1",
-    "tslint": "~5.9.1",
-    "typescript": "^3.1.6",
-    "webextension-polyfill": "^0.4.0"
+    "npm-run-all": "4.1.5",
+    "rollup": "1.12.0",
+    "rollup-plugin-commonjs": "10.0.0",
+    "rollup-plugin-livereload": "1.0.0",
+    "rollup-plugin-node-resolve": "5.2.0",
+    "rollup-plugin-svelte": "5.0.3",
+    "rollup-plugin-terser": "4.0.4",
+    "svelte": "3.0.0",
+    "webextension-polyfill": "0.4.0"
+  },
+  "dependencies": {
+    "sirv-cli": "0.4.4"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "autobuild": "rollup -c -w",
+    "dev": "run-p start:dev autobuild",
+    "start": "sirv public --single",
+    "start:dev": "sirv public --single --dev"
   }
 }

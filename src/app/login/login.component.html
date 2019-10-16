@@ -1,6 +1,0 @@
-<form *ngIf="!redditService.loading" (submit)="login()">
-  <div class="form-error" *ngIf="errorMessage">{{errorMessage}}</div>
-  <input class="form-control" name="username" type="text" placeholder="Username" [(ngModel)]="username" required>
-  <input class="form-control" name="password" type="password" placeholder="Password" [(ngModel)]="password" required>
-  <button class="btn btn-primary form-btn" type="submit">Login</button>
-</form>
