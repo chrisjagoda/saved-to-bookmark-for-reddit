@@ -26,9 +26,11 @@ npm run dev
 
 Navigate to [localhost:5000](http://localhost:5000). You should see the app running.
 
+
 To launch the extension locally, follow the instructions for your browser of choice:
 
 [Chrome](https://developer.chrome.com/extensions/getstarted)
+
 [Firefox](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension)
 
-Packaged with [web-ext](https://github.com/mozilla/web-ext)
+Packaged with [web-ext](https://github.com/mozilla/web-ext).
