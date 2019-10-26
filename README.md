@@ -2,8 +2,9 @@
 
 A browser extension that allows a user to convert their saved Reddit content to bookmarks.
 
-[Chrome](https://chrome.google.com/webstore/detail/saved-to-bookmark-for-red/jldonmpmebcjhhkgceklimheebdnjkpf)
-[Firefox](https://addons.mozilla.org/en-US/firefox/addon/saved-to-bookmark-for-reddit/)
+[Saved to Bookmark for Reddit (Chrome)](https://chrome.google.com/webstore/detail/saved-to-bookmark-for-red/jldonmpmebcjhhkgceklimheebdnjkpf)
+
+[Saved to Bookmark for Reddit (Firefox)](https://addons.mozilla.org/en-US/firefox/addon/saved-to-bookmark-for-reddit/)
 
 This project is based off of this [template](https://github.com/sveltejs/template) using [degit](https://github.com/Rich-Harris/degit) and uses [webextensions-polyfill](https://github.com/mozilla/webextension-polyfill/) for cross-browser support.
 
