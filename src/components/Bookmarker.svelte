@@ -16,7 +16,6 @@
     const local = await browser.storage.local.get(SETTINGS_STORAGE_KEY);  
 
     let existingSettings;
-    debugger;
     if (local && (existingSettings = local[SETTINGS_STORAGE_KEY])) {
       settings.set(existingSettings);
     }
