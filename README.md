@@ -2,6 +2,8 @@
 
 A browser extension that allows a user to convert their saved Reddit content to bookmarks.
 
+<img src="https://chrisjagoda.github.io/images/saved-to-bookmark-for-reddit.png" alt="Saved to Bookmark for Reddit" width="450px">
+
 [Saved to Bookmark for Reddit (Chrome)](https://chrome.google.com/webstore/detail/saved-to-bookmark-for-red/jldonmpmebcjhhkgceklimheebdnjkpf)
 
 [Saved to Bookmark for Reddit (Firefox)](https://addons.mozilla.org/en-US/firefox/addon/saved-to-bookmark-for-reddit/)
