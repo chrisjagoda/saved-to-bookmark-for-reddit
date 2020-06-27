@@ -6,7 +6,7 @@ A browser extension that allows a user to convert their saved Reddit content to 
 <img src="https://chrisjagoda.github.io/images/saved-to-bookmark-for-reddit.png" alt="Saved to Bookmark for Reddit" width="450px">
 </kbd>
 
-<br>
+<br/>
 
 [Saved to Bookmark for Reddit (Chrome)](https://chrome.google.com/webstore/detail/saved-to-bookmark-for-red/jldonmpmebcjhhkgceklimheebdnjkpf)
 
