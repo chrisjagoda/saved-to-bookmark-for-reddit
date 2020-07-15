@@ -1,4 +1,4 @@
-import browser from 'webextension-polyfill';
+import browser from "webextension-polyfill";
 
 let bookmarkFolderId;
 
@@ -24,13 +24,18 @@ export async function createBookmarkFolder(folderName) {
   return bookmarkFolderId !== undefined;
 }
 
-export async function createBookmarks(bookmarks) {
+export async function createBookmarks(bookmarks, saveRedditLink) {
   bookmarks.forEach(async bookmark => {
     if (bookmark.selected) {
       await browser.bookmarks.create({
         parentId: bookmarkFolderId,
-        title: bookmark.body ? bookmark.title + ' - ' + bookmark.body : bookmark.title,
-        url: bookmark.url
+        title: bookmark.body
+          ? `${bookmark.title} - ${bookmark.body}`
+          : bookmark.title,
+        url:
+          saveRedditLink && bookmark.type === "POST"
+            ? bookmark.redditUrl
+            : bookmark.url
       });
     }
   });

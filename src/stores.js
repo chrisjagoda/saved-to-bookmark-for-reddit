@@ -1,6 +1,6 @@
-import { writable } from 'svelte/store';
-import { DEFAULT_FOLDER_NAME, DEFAULT_MAX_COMMENT_LENGTH } from './constants';
-import { deepCopy } from './utils';
+import { writable } from "svelte/store";
+import { DEFAULT_FOLDER_NAME, DEFAULT_MAX_COMMENT_LENGTH } from "./constants";
+import { deepCopy } from "./utils";
 
 const DEFAULT_SAVED = null;
 const DEFAULT_SUBREDDITS = {
@@ -17,7 +17,7 @@ const DEFAULT_SESSION = {
 const DEFAULT_SETTINGS = {
   folderName: DEFAULT_FOLDER_NAME,
   maxCommentLength: DEFAULT_MAX_COMMENT_LENGTH
-}
+};
 
 export const saved = writable(DEFAULT_SAVED);
 export const toBeBookmarked = writable(DEFAULT_SAVED);
