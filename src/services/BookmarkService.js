@@ -24,18 +24,13 @@ export async function createBookmarkFolder(folderName) {
   return bookmarkFolderId !== undefined;
 }
 
-export async function createBookmarks(bookmarks, saveRedditLink) {
+export async function createBookmarks(bookmarks, isSaveRedditLinkChecked) {
   bookmarks.forEach(async bookmark => {
     if (bookmark.selected) {
       await browser.bookmarks.create({
         parentId: bookmarkFolderId,
-        title: bookmark.body
-          ? `${bookmark.title} - ${bookmark.body}`
-          : bookmark.title,
-        url:
-          saveRedditLink && bookmark.type === "POST"
-            ? bookmark.redditUrl
-            : bookmark.url
+        title: bookmark.body ? `${bookmark.title} - ${bookmark.body}` : bookmark.title,
+        url: isSaveRedditLinkChecked && bookmark.type === "POST" ? bookmark.redditUrl : bookmark.url
       });
     }
   });

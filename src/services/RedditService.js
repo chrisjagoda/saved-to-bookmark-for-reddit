@@ -1,30 +1,6 @@
 import { convertSavedToBookmark, toUrlParams } from "../utils";
 import { API_URL, SSL_URL } from "../constants";
 
-export async function login(username, password) {
-  const url = `${API_URL}api/login`;
-  const body = toUrlParams({
-    user: username,
-    passwd: password,
-    rem: true,
-    api_type: "json"
-  });
-  const headers = { "content-type": "application/x-www-form-urlencoded" };
-  const method = "POST";
-  let response;
-  try {
-    response = await fetch(url, { body, headers, method });
-  } catch {
-    throw new Error("Error logging in to reddit account.");
-  }
-  if (
-    response.status !== 200 ||
-    (await response.json()).json.data === undefined
-  ) {
-    throw new Error("Invalid username or password.");
-  }
-}
-
 export async function getMe() {
   const url = `${SSL_URL}/prefs/update`;
   const response = await fetch(url);

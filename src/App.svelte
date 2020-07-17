@@ -2,10 +2,10 @@
   import { onMount } from 'svelte';
   import Bookmarker from './components/Bookmarker.svelte';
   import Header from './components/Header.svelte';
-  import Login from './components/Login.svelte';
   import Spinner from './components/Spinner.svelte';
   import { getMe } from './services/RedditService';
   import { session } from './stores';
+  import { LOGIN_URL } from './constants';
 
   let loading = true;
 
@@ -30,6 +30,6 @@
   {#if $session.isLoggedIn}
     <Bookmarker />
   {:else}
-    <Login />
+    <p>Click <a href={LOGIN_URL} target="_blank">here</a> to login to Reddit and then reopen extension once logged in.</p>
   {/if}
 {/if}

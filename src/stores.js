@@ -8,6 +8,7 @@ const DEFAULT_SUBREDDITS = {
   allChecked: false
 };
 const DEFAULT_SESSION = {
+  isSaveRedditLinkChecked: false,
   isSavedRetrieved: false,
   isFolderCreated: false,
   isLoggedIn: false,

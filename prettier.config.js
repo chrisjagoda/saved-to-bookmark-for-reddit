@@ -3,4 +3,5 @@ module.exports = {
   semi: true,
   trailingComma: 'none',
   plugins: ['svelte'],
+  printWidth: 120
 }

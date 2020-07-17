@@ -29,7 +29,7 @@
 
   async function updateIsFolderCreated(isFolderCreated) {
     session.update(value => {
-      value.isFolderCreated = true;
+      value.isFolderCreated = isFolderCreated;
       return value;
     });
     if (isFolderCreated) {
@@ -51,14 +51,21 @@
 
   async function create() {
     await createFolder();
-    await createBookmarks($toBeBookmarked);
+    await createBookmarks($toBeBookmarked, $session.isSaveRedditLinkChecked);
   }
 
   async function unselectDuplicates() {
     const bookmarks = await getBookmarks();
     toBeBookmarked.update(values => {
+      const urlSet = new Set();
+
       values.forEach(value => {
-        value.selected = bookmarks.findIndex(bookmark => bookmark.url === value.url) === -1;
+        const saveUrl = $session.isSaveRedditLinkChecked && value.type === "POST" ? value.redditUrl : value.url;
+
+        value.selected = !(urlSet.has(saveUrl) || bookmarks.some(({ url }) => {
+          urlSet.add(url);
+          return url === saveUrl;
+        }));
       });
       return values;
     });
