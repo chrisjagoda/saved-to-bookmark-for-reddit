@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,600');
 
 html, body {
-	position: relative;
-	height: 600px;
+  position: relative;
+  height: 600px;
   width: 504px;
 }
 
 body {
   display: flex;
   flex-direction: column;
-	color: #333;
-	margin: 0;
-	padding: 0 24px 24px 24px;
-	box-sizing: border-box;
+  color: #333;
+  margin: 0;
+  padding: 0 24px 24px 24px;
+  box-sizing: border-box;
   font-size: 12px;
   font-family: 'IBM Plex Sans', sans-serif;
 }
@@ -22,15 +22,15 @@ input, button, ul {
 }
 
 ul {
-	margin-top: 0.5em;
-	padding: 0;
+  margin-top: 0.5em;
+  padding: 0;
   overflow-y: scroll;
   box-shadow: 0 1px 4px rgba(220, 220, 220, 0.5);
-	border: 1px solid rgb(170, 170, 170);
+  border: 1px solid rgb(170, 170, 170);
 }
 
 li {
-	padding: 2px 4px;
+  padding: 2px 4px;
 }
 
 li:nth-child(2n+1) {
@@ -51,49 +51,49 @@ h3 {
 }
 
 a {
-	color: rgb(0,100,200);
-	text-decoration: none;
+  color: rgb(0,100,200);
+  text-decoration: none;
 }
 
 a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 a:visited {
-	color: rgb(0,80,160);
+  color: rgb(0,80,160);
 }
 
 label {
-	font-size: 11px;
+  font-size: 11px;
 }
 
 input, button, select, textarea {
-	font-family: inherit;
-	font-size: inherit;
-	padding: 0.4em;
-	margin: 0 0 0.5em 0;
-	box-sizing: border-box;
-	border: 1px solid rgb(170, 170, 170);
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.4em;
+  margin: 0 0 0.5em 0;
+  box-sizing: border-box;
+  border: 1px solid rgb(170, 170, 170);
 }
 
 input[type="number"],
 input[type="text"] {
-	width: 100%;
-	border-radius: 2px;
+  width: 100%;
+  border-radius: 2px;
 }
 
 input[type="checkbox"] {
   vertical-align: sub;
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 button {
   color: #0479D4;
-	background-color: rgba(4, 121, 212, .08);
-	border: 1px solid #DAE0E6;
-	border-radius: 4px;
-	outline: none;
-	width: 100%;
+  background-color: rgba(4, 121, 212, .08);
+  border: 1px solid #DAE0E6;
+  border-radius: 4px;
+  outline: none;
+  width: 100%;
 }
 
 button:hover {
@@ -105,9 +105,9 @@ button:active {
 }
 
 button:disabled {
-	background-color: rgba(4, 121, 212, .04);
+  background-color: rgba(4, 121, 212, .04);
 }
 
 button:focus {
-	border: 1px solid rgb(200, 204, 212);
+  border: 1px solid rgb(200, 204, 212);
 }
