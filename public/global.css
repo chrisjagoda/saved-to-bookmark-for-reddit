@@ -2,30 +2,30 @@
 
 html, body {
 	position: relative;
-    height: 600px;
-    width: 504px;
+	height: 600px;
+  width: 504px;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 	color: #333;
 	margin: 0;
 	padding: 0 24px 24px 24px;
 	box-sizing: border-box;
-    font-size: 12px;
-    font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 
 input, button, ul {
-    margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 ul {
 	margin-top: 0.5em;
 	padding: 0;
-    overflow-y: scroll;
-    box-shadow: 0 1px 4px rgba(220, 220, 220, 0.5);
+  overflow-y: scroll;
+  box-shadow: 0 1px 4px rgba(220, 220, 220, 0.5);
 	border: 1px solid rgb(170, 170, 170);
 }
 
@@ -34,20 +34,20 @@ li {
 }
 
 li:nth-child(2n+1) {
-    background-color: #F7F8FA;
+  background-color: #F7F8FA;
 }
 
 h1 {
-    font-size: 38px;
+  font-size: 38px;
 }
 
 h2 {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 h3 {
-    color: #444;
-    font-size: 14px;
+  color: #444;
+  font-size: 14px;
 }
 
 a {
@@ -83,12 +83,12 @@ input[type="text"] {
 }
 
 input[type="checkbox"] {
-    vertical-align: sub;
+  vertical-align: sub;
 	margin-bottom: 0;
 }
 
 button {
-    color: #0479D4;
+  color: #0479D4;
 	background-color: rgba(4, 121, 212, .08);
 	border: 1px solid #DAE0E6;
 	border-radius: 4px;
@@ -97,11 +97,11 @@ button {
 }
 
 button:hover {
-    background-color: rgba(4, 121, 212, .16);
+  background-color: rgba(4, 121, 212, .16);
 }
 
 button:active {
-    background-color: rgba(4, 121, 212, .24);
+  background-color: rgba(4, 121, 212, .24);
 }
 
 button:disabled {
