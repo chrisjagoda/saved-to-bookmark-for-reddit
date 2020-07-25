@@ -1,7 +1,7 @@
 {
   "name": "saved-to-bookmark-for-reddit",
   "author": "Christopher Jagoda",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "devDependencies": {
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.11.0",
