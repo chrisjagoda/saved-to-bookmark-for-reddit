@@ -65,7 +65,6 @@
   .subreddit-list {
     flex: 1;
     max-height: 207px;
-    max-height: -webkit-fill-available;
   }
 
   .subreddit {
