@@ -16,7 +16,7 @@
     "rollup-plugin-svelte": "5.2.3",
     "rollup-plugin-terser": "4.0.4",
     "sirv-cli": "0.4.6",
-    "svelte": "3.24.0",
+    "svelte": "3.49.0",
     "webextension-polyfill": "0.4.0"
   },
   "scripts": {
